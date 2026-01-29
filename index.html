@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Weekly Neuro Quest</title>
+
+  <script>
+    const sites = [
+      "https://visdeurbel.nl/en/",
+      "https://zoomquilt.org/",
+      "https://theuselessweb.com/",
+      "https://pointerpointer.com/",
+      "https://radio.garden/",
+      "https://neal.fun/deep-sea/",
+      "https://neal.fun/size-of-space/",
+      "https://www.window-swap.com/",
+      "https://asoftmurmur.com/",
+      "https://heeeeeeeey.com/",
+      "https://www.mapcrunch.com/",
+      "https://www.zoomquilt2.com/"
+    ];
+
+    function getISOWeek(date) {
+      const d = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()));
+      const dayNum = d.getUTCDay() || 7;
+      d.setUTCDate(d.getUTCDate() + 4 - dayNum);
+      const yearStart = new Date(Date.UTC(d.getUTCFullYear(), 0, 1));
+      return Math.ceil((((d - yearStart) / 86400000) + 1) / 7);
+    }
+
+    const week = getISOWeek(new Date());
+    const index = week % sites.length;
+
+    window.location.replace(sites[index]);
+  </script>
+</head>
+
+<body>
+  <p>Teleporting…</p>
+</body>
+</html>
