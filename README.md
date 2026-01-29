@@ -1,2 +1,2 @@
-# PGB
+# PBG
 Weekly Neuro Quest
