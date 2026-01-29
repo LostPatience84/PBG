@@ -3,10 +3,22 @@
 <head>
   <meta charset="UTF-8">
   <title>Weekly Neuro Quest</title>
+</head>
+
+<body>
+  <p>Teleporting…</p>
 
   <script>
+    // Helper: are we in Fish Doorbell season?
+    function inFishSeason(d) {
+      const year = d.getFullYear();
+      const start = new Date(year, 2, 1);  // March 1
+      const end   = new Date(year, 5, 8);  // June 8
+      return d >= start && d <= end;
+    }
+
+    // Normal weekly rotation (no fish here)
     const sites = [
-      "https://visdeurbel.nl/en/",
       "https://zoomquilt.org/",
       "https://theuselessweb.com/",
       "https://pointerpointer.com/",
@@ -20,6 +32,9 @@
       "https://www.zoomquilt2.com/"
     ];
 
+    // Fish Doorbell (seasonal)
+    const fishDoorbell = "https://visdeurbel.nl/en/";
+
     function getISOWeek(date) {
       const d = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()));
       const dayNum = d.getUTCDay() || 7;
@@ -28,14 +43,18 @@
       return Math.ceil((((d - yearStart) / 86400000) + 1) / 7);
     }
 
-    const week = getISOWeek(new Date());
-    const index = week % sites.length;
+    const now = new Date();
+    const week = getISOWeek(now);
 
-    window.location.replace(sites[index]);
+    // Default weekly destination
+    let url = sites[week % sites.length];
+
+    // Seasonal override
+    if (inFishSeason(now)) {
+      url = fishDoorbell;
+    }
+
+    window.location.replace(url);
   </script>
-</head>
-
-<body>
-  <p>Teleporting…</p>
 </body>
 </html>
